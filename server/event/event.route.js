@@ -12,4 +12,7 @@ router.route('/event/:eventId')
     .get(eventCtrl.getById)
     .put(eventCtrl.update);
 
+router.route('/events')
+    .get(isLoggedIn.isVerified, eventCtrl.getByAdminId);
+
 module.exports = router;

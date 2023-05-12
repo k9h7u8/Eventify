@@ -1,7 +1,11 @@
+const jwt = require('jsonwebtoken');
 const Event = require('./event.model');
 
 const createAndSave = async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const eventDetails = {
+        admin_id: decoded.id,
         eventName: req.body.eventName,
         description: req.body.description,
         image: req.body.image,
@@ -33,6 +37,16 @@ const getById = async (req, res) => {
     });
 }
 
+const getByAdminId = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const eventObject = await Event.find({ admin_id: decoded.id }).then((data) => {
+        console.log(data)
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
 const update = async (req, res) => {
     const eventDetails = {
         eventName: req.body.eventName,
@@ -58,5 +72,6 @@ module.exports = {
     createAndSave,
     getAll,
     getById,
+    getByAdminId,
     update
 }
