@@ -10,7 +10,8 @@ router.route('/event')
 
 router.route('/event/:eventId')
     .get(eventCtrl.getById)
-    .put(eventCtrl.update);
+    .put(isLoggedIn.isVerified, eventCtrl.update)
+    .delete(isLoggedIn.isVerified, eventCtrl.deleteEvent);
 
 router.route('/events')
     .get(isLoggedIn.isVerified, eventCtrl.getByAdminId);

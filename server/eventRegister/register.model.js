@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const eventRegisterSchema = new mongoose.Schema({
+    event_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Event'
+    },
     name: {
         type: String,
         required: true
@@ -19,6 +23,7 @@ const eventRegisterSchema = new mongoose.Schema({
         type: Number,
         match: /^(\()?\d{3}(\))?(-|\s)?\d{3}(-|\s)\d{4}$/,
         required: true,
+        min: 10
     },
     year: {
         type: String,

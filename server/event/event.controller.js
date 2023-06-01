@@ -47,6 +47,7 @@ const getByAdminId = async (req, res) => {
         console.log(err);
     });
 }
+
 const update = async (req, res) => {
     const eventDetails = {
         eventName: req.body.eventName,
@@ -68,10 +69,19 @@ const update = async (req, res) => {
     });
 }
 
+const deleteEvent = async (req, res) => {
+    const eventObject = await Event.findById(req.params.eventId).remove().then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
 module.exports = {
     createAndSave,
     getAll,
     getById,
     getByAdminId,
-    update
+    update,
+    deleteEvent
 }
