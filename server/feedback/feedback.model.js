@@ -7,10 +7,6 @@ const feedbackSchema = new mongoose.Schema({
         required: true,
         default: 1
     },
-    eventName: {
-        type: String,
-        required: true,
-    },
     description: {
         type: String,
         required: true,
