@@ -3,6 +3,7 @@ const userRoutes = require('./server/user/user.route');
 const authRoutes = require('./server/auth/auth.route');
 const eventRoute = require('./server/event/event.route');
 const adminRoute = require('./server/admin/admin.route');
+const userFeedback = require('./server/feedback/feedback.routes')
 const eventRegisterRoute = require('./server/eventRegister/register.route')
 
 const router = express.Router(); // eslint-disable-line new-cap
@@ -15,7 +16,8 @@ router.get('/health-check', (req, res) =>
 );
 
 // mount user routes at /users
-router.use('/users', userRoutes);
+// router.use('/users', userRoutes);
+router.use('/users', userFeedback);
 
 // mount auth routes at /auth
 router.use('/auth', authRoutes);

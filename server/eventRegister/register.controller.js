@@ -1,4 +1,6 @@
 const EventRegister = require('./register.model');
+const sendEmail = require('../utils/sendMail');
+const service = require('../service/find');
 
 const createAndSave = async (req, res, next) => {
     const registerDetails = {
@@ -11,8 +13,10 @@ const createAndSave = async (req, res, next) => {
         section: req.body.section,
     }
     const register = new EventRegister(registerDetails);
-    const registerObject = await register.save().then((data) => {
+    const registerObject = await register.save().then(async (data) => {
         res.send(data);
+        const details = await service.getEvent(data.event_id);
+        sendEmail(data.email, details.eventName, details.description, details.date, details.time, details.venue);
     }).catch(err => {
         console.log(err);
     });
