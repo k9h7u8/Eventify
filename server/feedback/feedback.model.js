@@ -14,7 +14,6 @@ const feedbackSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: validator.isEmail,
             message: 'Please provide a valid email',

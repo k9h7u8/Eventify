@@ -5,7 +5,7 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const sendMail = (email, name, desc, date, time, venue) => {
         const msg = {
                 to: email,
-                from: process.env.MY_EMAIL, // Use the email address or domain you verified above
+                from: process.env.EMAIL, // Use the email address or domain you verified above
                 subject: 'Congratulations you are successfully registered for the event 🎉',
                 text: `Event Name: ${name},
                 Description: ${desc},
