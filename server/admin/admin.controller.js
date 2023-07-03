@@ -10,7 +10,7 @@ const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(req.body.password, salt);
     const adminDetails = {
-        name: req.body.name,
+        society_name: req.body.society_name,
         email: req.body.email,
         password: secPass
     }

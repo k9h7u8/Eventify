@@ -5,6 +5,9 @@ const eventSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Admin'
     },
+    category: {
+        type: String,
+    },
     eventName: {
         type: String,
         required: true

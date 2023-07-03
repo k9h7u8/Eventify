@@ -1,11 +1,15 @@
 const jwt = require('jsonwebtoken');
 const Event = require('./event.model');
+const admin = require('../service/find')
 
 const createAndSave = async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const adminDetails = await admin.getAdmin(decoded.id);
+    console.log(adminDetails);
     const eventDetails = {
         admin_id: decoded.id,
+        category: adminDetails.society_name,
         eventName: req.body.eventName,
         description: req.body.description,
         image: req.body.image,
