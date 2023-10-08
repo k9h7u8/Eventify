@@ -7,6 +7,8 @@ const eventSchema = new mongoose.Schema({
     },
     category: {
         type: String,
+        enum: ['dance', 'cultural', 'music', 'technical', 'sports', 'fine arts', 'others'],
+        required: true
     },
     eventName: {
         type: String,
@@ -35,6 +37,10 @@ const eventSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    noOfRegistration: {
+        type: Number,
+        default: 0,
     }
 });
 

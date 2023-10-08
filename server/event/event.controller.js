@@ -1,6 +1,6 @@
 const jwt = require('jsonwebtoken');
 const Event = require('./event.model');
-const admin = require('../service/find')
+const admin = require('../service/eventServices')
 
 const createAndSave = async (req, res, next) => {
     const token = req.headers.authorization.split(' ')[1];
