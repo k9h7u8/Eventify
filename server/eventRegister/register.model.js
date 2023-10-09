@@ -31,6 +31,7 @@ const eventRegisterSchema = new mongoose.Schema({
     },
     branch: {
         type: String,
+        enum: ['CSE', 'IT', 'CE', 'EE', 'ME', 'ECE', 'CA', 'BA', 'Mtech'],
         required: true,
     },
     section: {

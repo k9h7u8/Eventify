@@ -33,8 +33,16 @@ const getAll = async (req, res) => {
     });
 }
 
-const getById = async (req, res) => {
+const getByEventId = async (req, res) => {
     const eventObject = await Event.findById(req.params.eventId).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+const getEventByAdminId = async (req, res) => {
+    const eventObject = await Event.find({ admin_id: req.params.adminId }).then((data) => {
         res.send(data);
     }).catch(err => {
         console.log(err);
@@ -84,7 +92,8 @@ const deleteEvent = async (req, res) => {
 module.exports = {
     createAndSave,
     getAll,
-    getById,
+    getByEventId,
+    getEventByAdminId,
     getByAdminId,
     update,
     deleteEvent
