@@ -31,7 +31,51 @@ const getById = async (req, res) => {
     });
 }
 
+const eventDetails = async (req, res) => {
+    try {
+        const result = await EventRegister.aggregate([
+            {
+                $group: {
+                    _id: '$branch',
+                    count: { $sum: 1 },
+                }
+            },
+        ]);
+        const branchCounts = {};
+
+        result.forEach((branchCount) => {
+            branchCounts[branchCount._id] = branchCount.count;
+        });
+        res.send(branchCounts);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+const details = async (req, res) => {
+    try {
+        const result = await EventRegister.aggregate([
+            {
+                $group: {
+                    _id: '$year',
+                    count: { $sum: 1 },
+                }
+            },
+        ]);
+        const yearCounts = {};
+
+        result.forEach((yearCount) => {
+            yearCounts[yearCount._id] = yearCount.count;
+        });
+        res.send(yearCounts);
+    } catch (error) {
+        console.log(error);
+    }
+}
+
 module.exports = {
     createAndSave,
-    getById
+    getById,
+    eventDetails,
+    details
 };

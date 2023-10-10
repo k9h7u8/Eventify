@@ -13,13 +13,6 @@ Promise = require('bluebird'); // eslint-disable-line no-global-assign
 // plugin bluebird promise in mongoose
 mongoose.Promise = Promise;
 
-// mongoose.createConnection(config.mongoUrl, {
-//   useNewUrlParser: true,
-//   useUnifiedTopology: true,
-// }, () => {
-//   console.log("Connected to MongoDB Database");
-// })
-
 mongoose.connect(config.mongoUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true
