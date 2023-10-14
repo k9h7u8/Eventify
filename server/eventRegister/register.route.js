@@ -8,9 +8,9 @@ router.route('/register/:eventId')
     .get(registerCtrl.getById);
 
 router.route('/details/:eventId')
-    .get(registerCtrl.eventDetails);
+    .get(registerCtrl.branchDetails);
 
 router.route('/year/:eventId')
-    .get(registerCtrl.details);
+    .get(registerCtrl.yearDetails);
 
 module.exports = router;

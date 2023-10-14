@@ -9,13 +9,14 @@ const createAndSave = async (req, res, next) => {
     console.log(adminDetails);
     const eventDetails = {
         admin_id: decoded.id,
-        category: adminDetails.society_name,
+        category: req.body.category,
         eventName: req.body.eventName,
         description: req.body.description,
         image: req.body.image,
         date: req.body.date,
         time: req.body.time,
         venue: req.body.venue,
+        societyName: adminDetails.society_name
     }
     const event = new Event(eventDetails);
     const eventObject = await event.save().then((data) => {
@@ -62,6 +63,7 @@ const getByAdminId = async (req, res) => {
 
 const update = async (req, res) => {
     const eventDetails = {
+        category: req.body.category,
         eventName: req.body.eventName,
         description: req.body.description,
         image: req.body.image,
