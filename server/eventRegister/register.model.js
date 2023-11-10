@@ -29,7 +29,8 @@ const eventRegisterSchema = new mongoose.Schema({
         min: 10
     },
     year: {
-        type: String,
+        type: Number,
+        enum: [1, 2, 3, 4],
         required: true,
     },
     branch: {

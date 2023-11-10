@@ -34,7 +34,7 @@ const getAll = async (req, res) => {
 }
 
 const getByEventId = async (req, res) => {
-    const eventObject = await Event.findById(req.params.eventId).then((data) => {
+    const eventObject = await Event.find({ _id: req.params.eventId }).then((data) => {
         res.send(data);
     }).catch(err => {
         console.log(err);
