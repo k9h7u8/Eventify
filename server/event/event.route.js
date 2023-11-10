@@ -11,9 +11,9 @@ router.route('/event')
     .get(eventCtrl.getAll);
 
 router.route('/event/:eventId')
-    .get(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.getByEventId)
-    .put(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.update)
-    .delete(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.deleteEvent);
+    .get(isLoggedIn.isVerified, eventCtrl.getByEventId)
+    .put(isLoggedIn.isVerified, checkAdmin.isAdmin, eventCtrl.update)
+    .delete(isLoggedIn.isVerified, checkAdmin.isAdmin, eventCtrl.deleteEvent);
 
 router.route('/events')
     .get(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.getByAdminId);
