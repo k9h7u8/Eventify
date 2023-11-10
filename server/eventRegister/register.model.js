@@ -2,6 +2,10 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const eventRegisterSchema = new mongoose.Schema({
+    user_id: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'UserAdmin'
+    },
     event_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Event'
@@ -13,7 +17,6 @@ const eventRegisterSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        unique: true,
         validate: {
             validator: validator.isEmail,
             message: 'Please provide a valid email',
@@ -37,6 +40,10 @@ const eventRegisterSchema = new mongoose.Schema({
     section: {
         type: String,
         required: true,
+    },
+    isCertified: {
+        type: Boolean,
+        default: false
     },
     createdAt: {
         type: Date,

@@ -1,22 +1,21 @@
 const express = require('express');
 const eventCtrl = require('./event.controller');
 const isLoggedIn = require('../middleware/verifyToken');
+const checkAdmin = require('../middleware/checkAdmin');
 
 const router = express.Router();
 
 router.route('/event')
-    .post(isLoggedIn.isVerified, eventCtrl.createAndSave)
+    .post(isLoggedIn.isVerified, checkAdmin.isAdmin, eventCtrl.createAndSave)
+    //home page
     .get(eventCtrl.getAll);
 
 router.route('/event/:eventId')
-    .get(eventCtrl.getByEventId)
-    .put(isLoggedIn.isVerified, eventCtrl.update)
-    .delete(isLoggedIn.isVerified, eventCtrl.deleteEvent);
-
-router.route('/events/:adminId')
-    .get(eventCtrl.getEventByAdminId);
+    .get(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.getByEventId)
+    .put(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.update)
+    .delete(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.deleteEvent);
 
 router.route('/events')
-    .get(isLoggedIn.isVerified, eventCtrl.getByAdminId);
+    .get(isLoggedIn.isVerified, isLoggedIn.isVerified, eventCtrl.getByAdminId);
 
 module.exports = router;

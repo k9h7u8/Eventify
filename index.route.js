@@ -2,7 +2,7 @@ const express = require('express');
 const userRoutes = require('./server/user/user.route');
 const authRoutes = require('./server/auth/auth.route');
 const eventRoute = require('./server/event/event.route');
-const adminRoute = require('./server/admin/admin.route');
+const adminRoute = require('./server/user-admin/user-admin.route');
 const userFeedback = require('./server/feedback/feedback.routes')
 const eventRegisterRoute = require('./server/eventRegister/register.route')
 

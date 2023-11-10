@@ -1,5 +1,5 @@
 const Event = require('../event/event.model');
-const Admin = require('../admin/admin.model');
+const Admin = require('../user-admin/user-admin.model');
 
 
 const getEvent = async (id) => {
@@ -17,7 +17,7 @@ const updateEvent = async (eventId, numberRegister) => {
         new: true,
         useFindAndModify: false
     }).then((data) => {
-        res.send(data);
+        return data;
     }).catch(err => {
         console.log(err);
     });

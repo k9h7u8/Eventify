@@ -1,16 +1,21 @@
 const express = require('express');
 const registerCtrl = require('./register.controller');
+const isLoggedIn = require('../middleware/verifyToken');
+const checkAdmin = require('../middleware/checkAdmin');
 
 const router = express.Router();
 
 router.route('/register/:eventId')
-    .post(registerCtrl.createAndSave)
-    .get(registerCtrl.getById);
+    .post(isLoggedIn.isVerified, registerCtrl.createAndSave)
+    .get(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.getByEventId);
+
+router.route('/registrations')
+    .get(isLoggedIn.isVerified, registerCtrl.getByUserId);
 
 router.route('/details/:eventId')
-    .get(registerCtrl.branchDetails);
+    .get(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.branchDetails);
 
 router.route('/year/:eventId')
-    .get(registerCtrl.yearDetails);
+    .get(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.yearDetails);
 
 module.exports = router;

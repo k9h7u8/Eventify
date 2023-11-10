@@ -1,9 +1,13 @@
 const EventRegister = require('./register.model');
 const sendEmail = require('../utils/sendMail');
-const service = require('../service/eventServices');
+const service = require('../service/adminEventServices');
+const jwt = require('jsonwebtoken');
 
 const createAndSave = async (req, res, next) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
     const registerDetails = {
+        user_id: decoded.id,
         event_id: req.params.eventId,
         name: req.body.name,
         email: req.body.email,
@@ -23,8 +27,18 @@ const createAndSave = async (req, res, next) => {
     });
 }
 
-const getById = async (req, res) => {
+const getByEventId = async (req, res) => {
     const eventObject = await EventRegister.find({ event_id: req.params.eventId }).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+const getByUserId = async (req, res) => {
+    const token = req.headers.authorization.split(' ')[1];
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const eventObject = await EventRegister.find({ user_id: decoded.id }).then((data) => {
         res.send(data);
     }).catch(err => {
         console.log(err);
@@ -73,7 +87,8 @@ const yearDetails = async (req, res) => {
 
 module.exports = {
     createAndSave,
-    getById,
+    getByEventId,
+    getByUserId,
     branchDetails,
     yearDetails
 };

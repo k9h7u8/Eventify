@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const eventSchema = new mongoose.Schema({
     admin_id: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Admin'
+        ref: 'UserAdmin'
     },
     category: {
         type: String,

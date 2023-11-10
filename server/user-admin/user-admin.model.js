@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const adminSchema = new mongoose.Schema({
-    society_name: {
+    name: {
         type: String,
         required: true
     },
@@ -21,9 +21,13 @@ const adminSchema = new mongoose.Schema({
     createdAt: {
         type: Date,
         default: Date.now
+    },
+    is_admin: {
+        type: Boolean,
+        default: false
     }
 });
 
-const admin = mongoose.model('Admin', adminSchema);
+const useradmin = mongoose.model('UserAdmin', adminSchema);
 
-module.exports = admin; 
+module.exports = useradmin; 

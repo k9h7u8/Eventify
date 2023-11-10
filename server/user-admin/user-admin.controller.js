@@ -1,4 +1,4 @@
-const Admin = require('./admin.model');
+const userAdmin = require('./user-admin.model');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -9,15 +9,17 @@ const signToken = id => {
 const register = async (req, res, next) => {
     const salt = await bcrypt.genSalt(10);
     const secPass = await bcrypt.hash(req.body.password, salt);
-    const adminDetails = {
-        society_name: req.body.society_name,
+    const userDetails = {
+        name: req.body.name,
         email: req.body.email,
         password: secPass
     }
-    const adminObject = await Admin.create(adminDetails).then((data) => {
+    const userObject = await userAdmin.create(userDetails).then((data) => {
+        const token = signToken(data._id);
         res.status(200).json({
             message: "success",
-            data: data
+            data: data,
+            token: token
         });
     }).catch(err => {
         res.status(500).json({
@@ -34,16 +36,16 @@ const login = async (req, res, next) => {
             message: "Please provide email and password",
         });
     }
-    const admin = await Admin.findOne({ email: email });
-    if (!admin || !(await bcrypt.compare(password, admin.password))) {
+    const user = await userAdmin.findOne({ email: email });
+    if (!user || !(await bcrypt.compare(password, user.password))) {
         res.status(401).json({
             message: "Incorrect email or password",
         });
     }
-    const token = signToken(admin._id);
+    const token = signToken(user._id);
     res.status(200).json({
         message: "success",
-        data: admin,
+        data: user,
         token: token
     });
 }
