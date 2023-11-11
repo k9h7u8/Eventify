@@ -84,11 +84,29 @@ const yearDetails = async (req, res) => {
         console.log(error);
     }
 }
+const update = async (req, res) => {
+    const eventObject = await EventRegister.findOneAndUpdate({
+        event_id: req.params.eventId,
+        user_id: req.params.userId
+    }, {
+        $set: {
+            isCertified: true
+        }
+    }, {
+        new: true,
+        useFindAndModify: false
+    }).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
 
 module.exports = {
     createAndSave,
     getByEventId,
     getByUserId,
     branchDetails,
-    yearDetails
+    yearDetails,
+    update
 };
