@@ -38,7 +38,13 @@ const getByEventId = async (req, res) => {
 const getByUserId = async (req, res) => {
     const token = req.headers.authorization.split(' ')[1];
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    const eventObject = await EventRegister.find({ user_id: decoded.id }).then((data) => {
+    const eventObject = await EventRegister.find({ user_id: decoded.id }).populate({
+        path: 'event_id',
+        populate: {
+            path: 'admin_id',
+            model: 'UserAdmin' // Replace 'Admin' with the actual model name for admin
+        }
+    }).then((data) => {
         res.send(data);
     }).catch(err => {
         console.log(err);
