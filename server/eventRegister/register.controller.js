@@ -19,8 +19,8 @@ const createAndSave = async (req, res, next) => {
     const register = new EventRegister(registerDetails);
     const registerObject = await register.save().then(async (data) => {
         res.send(data);
+        const NumberRegister = await service.findAndUpdateEvent(data.event_id);
         const details = await service.getEvent(data.event_id);
-        const NumberRegister = await service.updateEvent(data.event_id, details.noOfRegistration);
         sendEmail(data.email, details.eventName, details.description, details.date, details.time, details.venue);
     }).catch(err => {
         console.log(err);

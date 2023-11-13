@@ -11,17 +11,30 @@ const getEvent = async (id) => {
     return resultObject;
 }
 
-const updateEvent = async (eventId, numberRegister) => {
-    const resultObject = await Event.findOneAndUpdate(eventId,
-        { $inc: { numberRegister: 1 } }, {
-        new: true,
-        useFindAndModify: false
-    }).then((data) => {
-        return data;
-    }).catch(err => {
+const findAndUpdateEvent = async (eventId) => {
+    // const resultObject = await Event.findOneAndUpdate(eventId,
+    //     { $inc: { noRegister: 1 } }, {
+    //     new: true,
+    //     useFindAndModify: false
+    // }).then((data) => {
+    //     return data;
+    // }).catch(err => {
+    //     console.log(err);
+    // });
+    // return resultObject;
+    try {
+        const event = await Event.findById(eventId);
+        if (event) {
+            event.noOfRegistration = event.noOfRegistration ? event.noOfRegistration + 1 : 1;
+            const resultObject = await event.save();
+            return resultObject;
+        } else {
+            return null
+        }
+    } catch (err) {
         console.log(err);
-    });
-    return resultObject;
+        throw err;
+    }
 }
 
 const getAdmin = async (id) => {
@@ -36,5 +49,5 @@ const getAdmin = async (id) => {
 module.exports = {
     getEvent,
     getAdmin,
-    updateEvent
+    findAndUpdateEvent
 }
