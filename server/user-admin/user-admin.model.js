@@ -18,14 +18,14 @@ const adminSchema = new mongoose.Schema({
         required: true,
         minlength: 8
     },
+    is_admin: {
+        type: Boolean,
+        default: false
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    is_admin: {
-        type: Boolean,
-        default: false
-    }
 });
 
 const useradmin = mongoose.model('UserAdmin', adminSchema);

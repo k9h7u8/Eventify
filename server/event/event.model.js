@@ -38,14 +38,13 @@ const eventSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    noOfRegistration: {
+        type: Number,
+    },
     createdAt: {
         type: Date,
         default: Date.now
     },
-    noOfRegistration: {
-        type: Number,
-        default: 0,
-    }
 });
 
 const event = mongoose.model('Event', eventSchema);
