@@ -96,7 +96,7 @@ const update = async (req, res) => {
         user_id: req.params.userId
     }, {
         $set: {
-            isCertified: true
+            isCertified: req.body.isCertified
         }
     }, {
         new: true,
