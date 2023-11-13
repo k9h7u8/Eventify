@@ -12,16 +12,6 @@ const getEvent = async (id) => {
 }
 
 const findAndUpdateEvent = async (eventId) => {
-    // const resultObject = await Event.findOneAndUpdate(eventId,
-    //     { $inc: { noRegister: 1 } }, {
-    //     new: true,
-    //     useFindAndModify: false
-    // }).then((data) => {
-    //     return data;
-    // }).catch(err => {
-    //     console.log(err);
-    // });
-    // return resultObject;
     try {
         const event = await Event.findById(eventId);
         if (event) {
