@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const validator = require('validator');
 
 const eventRegisterSchema = new mongoose.Schema({
     user_id: {
@@ -17,10 +16,8 @@ const eventRegisterSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        validate: {
-            validator: validator.isEmail,
-            message: 'Please provide a valid email',
-        },
+        lowercase: true,
+        match: [/^\S+@\S+\.\S+$/, 'Please enter a valid email address'],
     },
     phone: {
         type: Number,
