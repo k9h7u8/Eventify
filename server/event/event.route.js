@@ -10,6 +10,12 @@ router.route('/event')
     //home page
     .get(eventCtrl.getAll);
 
+router.route('/event/category/:category')
+    .get(eventCtrl.getByCategory);
+
+router.route('/event/society/:societyName')
+    .get(eventCtrl.getBySocietyName);
+
 router.route('/event/:eventId')
     .get(isLoggedIn.isVerified, eventCtrl.getByEventId)
     .put(isLoggedIn.isVerified, checkAdmin.isAdmin, eventCtrl.update)

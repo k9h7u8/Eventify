@@ -33,6 +33,22 @@ const getAll = async (req, res) => {
     });
 }
 
+const getByCategory = async (req, res) => {
+    const eventObject = await Event.find({ category: req.params.category }).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
+const getBySocietyName = async (req, res) => {
+    const eventObject = await Event.find({ societyName: req.params.societyName }).then((data) => {
+        res.send(data);
+    }).catch(err => {
+        console.log(err);
+    });
+}
+
 const getByEventId = async (req, res) => {
     const eventObject = await Event.find({ _id: req.params.eventId }).then((data) => {
         res.send(data);
@@ -85,6 +101,8 @@ const deleteEvent = async (req, res) => {
 module.exports = {
     createAndSave,
     getAll,
+    getByCategory,
+    getBySocietyName,
     getByEventId,
     getByAdminId,
     update,

@@ -16,15 +16,20 @@ const createAndSave = async (req, res, next) => {
         branch: req.body.branch,
         section: req.body.section,
     }
-    const register = new EventRegister(registerDetails);
-    const registerObject = await register.save().then(async (data) => {
-        res.send(data);
-        const NumberRegister = await service.findAndUpdateEvent(data.event_id);
-        const details = await service.getEvent(data.event_id);
-        sendEmail(data.email, details.eventName, details.description, details.date, details.time, details.venue);
-    }).catch(err => {
-        console.log(err);
-    });
+    const ans = await EventRegister.find({ event_id: req.params.eventId, user_id: decoded.id });
+    if (ans.length === 0) {
+        const register = new EventRegister(registerDetails);
+        const registerObject = await register.save().then(async (data) => {
+            res.send(data);
+            const NumberRegister = await service.findAndUpdateEvent(data.event_id);
+            const details = await service.getEvent(data.event_id);
+            sendEmail(data.email, details.eventName, details.description, details.date, details.time, details.venue);
+        }).catch(err => {
+            console.log(err);
+        });
+    } else {
+        res.status(400).send("Already registered");
+    }
 }
 
 const getByEventId = async (req, res) => {
@@ -108,11 +113,21 @@ const update = async (req, res) => {
     });
 }
 
+const updateCertified = async (req, res) => {
+    const eventObject = await EventRegister.updateMany({ event_id: req.params.eventId }, { $set: { isCertified: true } }).
+        then((data) => {
+            res.send(data);
+        }).catch(err => {
+            console.log(err);
+        });
+}
+
 module.exports = {
     createAndSave,
     getByEventId,
     getByUserId,
     branchDetails,
     yearDetails,
-    update
+    update,
+    updateCertified
 };

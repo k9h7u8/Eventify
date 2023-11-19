@@ -7,7 +7,8 @@ const router = express.Router();
 
 router.route('/register/:eventId')
     .post(isLoggedIn.isVerified, registerCtrl.createAndSave)
-    .get(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.getByEventId);
+    .get(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.getByEventId)
+    .put(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.updateCertified);
 
 router.route('/register/:eventId/:userId')
     .put(isLoggedIn.isVerified, checkAdmin.isAdmin, registerCtrl.update);
